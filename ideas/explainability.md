@@ -19,7 +19,7 @@ which could output something like
 ```
 rolling_mean(window=100, trigger=Trade)
 └── subtract
-    ├── trade_price
+    ├── trade_pricex
     └── divide
         ├── add
         │   ├── bid_price
