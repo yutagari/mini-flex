@@ -1,6 +1,11 @@
+from miniflex.features import RollingMean
+
+
+
 def process_events(events):
     mid = None
-    history = []
+    rolling = RollingMean(10)
+
     for event in events:
         if event["type"] == "book":
             # at each tick (denoted by book), calculate a FV from mid price
@@ -8,15 +13,12 @@ def process_events(events):
         
         elif event["type"] == 'trade':
             #if a trade has occurred, record the distance from calc FV of this trade in the history
-            history.append(event['price']-mid)
+            d = event['price']-mid
+
+            rolling.update(d)
 
 
-            if len(history) > 10:
-                #history will have a forgetfulness to avoid informing the final result on stale events
-                history.pop(0)
-
-
-    return sum(history)/len(history)
+    return rolling.evaluate()
 
 
 
