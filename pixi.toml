@@ -7,6 +7,10 @@ version = "0.1.0"
 
 [tasks]
 test = "python -m pytest"
+prototype = "python -m miniflex.prototype"
+
+[pypi-dependencies]
+miniflex = { path = ".", editable = true }
 
 [dependencies]
 python = ">=3.15.2,<3.16"
